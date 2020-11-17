@@ -1,3 +1,0 @@
-\contentsline {chapter}{\numberline {1}Chapter 1 Title}{1}%
-\contentsline {chapter}{\numberline {2}Chapter 2 Title}{2}%
-\contentsline {chapter}{References}{3}%
