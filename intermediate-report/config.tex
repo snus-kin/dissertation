@@ -19,13 +19,16 @@
 \usepackage{amsfonts}
 \usepackage{float}
 \usepackage{amssymb}
-
+\usepackage{pgfgantt}
+\usepackage{subcaption}
+\usepackage{hyperref}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Details of your dissertation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\projectTitle}{Generative Art}
+\newcommand{\projectTitle}{Using Generative Art Techniques to Explore the Work
+of Darrell Viner}
 \newcommand{\fullname}{Thomas Carroll}
 \newcommand{\degreeTitle}{Computer Science with Artificial Intelligence (MEng)}
 \newcommand{\session}{2020/21}
@@ -68,6 +71,12 @@
 \bibliographystyle{abbrv}
 
 
+% No paragraph indent thank you
+\setlength\parindent{0pt}
+% make this better so it's more readable with no indent
+\setlength{\parskip}{1em}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Layout for the front cover !!!!! YOU SHOULD NOT HAVE TO CHANGE THIS!!!!!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -78,8 +87,7 @@
 \newgeometry{left=25mm,right=25mm,top=70mm,bottom=5mm}
 
 \begin{minipage}[t]{7cm}
-    \noindent\textbf{\Large{School of Computing}}
-
+\noindent\textbf{\Large{School of Computing}}\\
 {\fontfamily{ptm}\selectfont 
 \uppercase{faculty of engineering and
 
@@ -97,29 +105,21 @@ physical science}
 
 \centering
 \vspace*{37mm}
-\textbf{\Large\projectTitle}
-
-
+\textbf{\Large\projectTitle}\\
 \vspace*{10mm}
-\textbf{\large\fullname}
-
-
+\textbf{\large\fullname}\\
 \vspace*{10mm}
-\textbf{Submitted in accordance with the requirements for the degree of}
-
-\textbf{\degreeTitle}
+\textbf{Submitted in accordance with the requirements for the degree of}\\
+\textbf{\degreeTitle}\\
 
 \vfill
 
 \noindent Type of project: \rule{100mm}{1pt}
-\vspace{10mm}
-
+\vspace{10mm}\\
 \noindent The candidate confirms that the work submitted is their own and the appropriate credit has been given where reference has been made to the work of others.
-\vspace{5mm}
-
+\vspace{5mm}\\
 \noindent I understand that failure to attribute material which is obtained from another source may be considered as plagiarism.
-\vspace{10mm}
-
+\vspace{10mm}\\
 \flushright(Signature of Student) \rule{50mm}{1pt}
 \flushleft
 \vfill

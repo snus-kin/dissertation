@@ -1,9 +1,60 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{swayne:dsc2003}
+D.~T.~L. Deborah F.~Swayne, Andreas~Buja.
+\newblock Exploratory visual analysis of graphs in ggobi.
+\newblock In {\em Exploratory Visual Analysis of Graphs in GGobi}, 2003.
+
+\bibitem{lycett_2016}
+R.~Lycett.
+\newblock Darrell viner: materiality, process and the coded object, Jan 2016.
+\newblock Unpublished.
+
+\bibitem{monzo_2005}
+J.~Monzo.
+\newblock Monzo / exponent vector / prime-exponent vector, 2005.
+\newblock \url {http://tonalsoft.com/monzo/lattices/lattices.htm}.
+
+\bibitem{partch1974genesis}
+H.~Partch.
+\newblock {\em Genesis Of A Music}.
+\newblock Da Capo Press, 1974.
+
+\bibitem{govuk_copyright}
+\relax{gov.uk}.
+\newblock Exceptions to copyright.
+\newblock \url {https://www.gov.uk/guidance/exceptions-to-copyright\#overview}.
 
 \bibitem{viner_bio}
 \relax{Henry Moore Institute}.
-\newblock Darrell viner: Early work, 2011.
-\newblock
-  \url{https://www.henry-moore.org/whats-on/2011/07/27/darrell-viner-early-work}.
+\newblock {Darrell} viner: {Early} work, 2011.
+\newblock \url
+  {https://www.henry-moore.org/whats-on/2011/07/27/darrell-viner-early-work}.
+
+\bibitem{museodelprado_MonaLisa}
+\relax{Museo Nacional del Prado}.
+\newblock The {Mona} {Lisa} - {The} {Collection} - {Museo} {Nacional} del
+  {Prado}.
+\newblock \url
+  {https://www.museodelprado.es/en/the-collection/art-work/the-mona-lisa/80c9b279-5c80-4d29-b72d-b19cdca6601c}.
+
+\bibitem{smith_2005}
+J.~O. Smith, III.
+\newblock Viewpoints on the history of digital synthesis, Dec 2005.
+
+\bibitem{stell_unpublished}
+J.~Stell.
+\newblock Generative art notes.
+\newblock Unpublished.
+
+\bibitem{picaso_manual}
+J.~A. Vince.
+\newblock Picaso a computer language for art and design, 1975.
+
+\bibitem{viner_artiststatement}
+D.~Viner.
+\newblock Artist statment.
+\newblock Retrieved 14/12/2017:
+  \url{http://www.darrellviner.org/artiststatement/}.
 
 \end{thebibliography}

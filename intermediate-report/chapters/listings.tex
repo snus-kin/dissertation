@@ -1,0 +1,97 @@
+\chapter{Listings}
+\section{Audio Demo}
+\label{audiodemo}
+\begin{lstlisting}[language=java]
+import processing.sound.*;
+
+SinOsc base;
+SinOsc variable;
+float baseFreq = 440;
+// they are in unity to start with
+float variableFreq = 440;
+
+float volume = 0.2;
+float s_x,s_y,x,y = 0;
+float interval;
+
+boolean isUp, isDown, isLeft, isRight;
+
+void settings() {
+  size(501, 501);
+}
+
+void setup() {  
+  base = new SinOsc(this);
+  base.play();
+  base.freq(baseFreq);
+  base.amp(volume);
+
+  variable = new SinOsc(this);
+  variable.play();
+  variable.amp(volume);
+}
+
+void draw() {
+  background(255);
+  translate(width/2, height/2);
+  scale(1, -1);
+
+  // make some axes
+  stroke(0);
+  strokeWeight(1);
+  line(0,height/2,0,-height/2);
+  line(width/2,0,-height,0);
+
+  strokeWeight(4);
+  point(x,y);
+
+  // mark where the integer values will be, for demo reasons
+  stroke(255,0,0);
+  strokeWeight(4);
+  for(int i = -3; i <= 3; i++) {
+    for(int j = -3; j <= 3; j++) {
+      point(map(i, -3, 3, -width/2, width/2),
+            map(j, -3, 3, -height/2, height/2));
+    }
+  }
+
+  // scale x and y to some reasonable numbers -3 -> 3 
+  s_x = map(x, -width/2, width/2, -3, 3);
+  s_y = map(y, -height/2, height/2, -3, 3);
+  // now we need to find a way to scale until 
+  // we're in the same octave
+  interval = pow(3,s_x) * pow(5,s_y);
+  
+  while (interval < 1 || interval >= 2) {
+    if (interval < 1) {
+      interval = interval * 2;
+    } else if (interval > 2) {
+      interval = interval / 2;
+    }
+  }
+
+  variableFreq = interval * baseFreq;
+  variable.freq(variableFreq);
+
+  if (isUp) y++;
+  if (isDown) y--;
+  if (isRight) x++;
+  if (isLeft) x--;
+}
+
+void keyPressed() {
+  setMove(key, true);
+}
+
+void keyReleased() {
+  setMove(key, false);
+}
+
+void setMove(char k, boolean b) {
+  if (key == 'w') isUp = b;
+  if (key == 's') isDown = b;
+  if (key == 'a') isLeft = b;
+  if (key == 'd') isRight = b;
+}
+\end{lstlisting}
+
