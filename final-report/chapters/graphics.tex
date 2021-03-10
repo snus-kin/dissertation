@@ -134,7 +134,7 @@ the world moves beneath the player rather than the point of distortion being
 changed, the grid displayed is reflecting the `terrain' visible from the centre
 point.
 
-\begin{figure}[h!]
+\begin{figure}[H]
 \centering
 \subfloat{\tikz[remember
 picture]{\node(1AL){\includegraphics[width=.4\textwidth]{PoC3}};}}%
@@ -192,10 +192,114 @@ represent the complexity of natural phenomena"}, and is relatively simple,
 generating a random grid of vectors and then computing the dot product vectors
 and their offsets, then finally interpolating to create a more smooth image.
 \verb|p5js| also provides a \verb|noiseDetail()| method that provides some
-control over the 'texture' of the noise.
-
-%TODO more detail above
-
-%TODO compare noise with grid test
+control over the 'texture' of the noise. Also for reproducibility
+\verb|noiseSeed()| allows the programmer to set a seed value for the noise.
+The \verb|noise()| function takes three coordinate arguments and outputs a
+number between $0-1$
 
 %https://mrl.cs.nyu.edu/~perlin/doc/oscar.html#noise
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.4\textwidth]{noiseDefault}
+\hspace{0.2cm}
+\includegraphics[width=.4\textwidth]{noiseDetail2halfFalloff}
+\caption{Two perlin noise samples (one default the other with
+noiseDetail(2, 0.5) with the same seed, histograms plotted beneath show
+that the adjustment makes the image overall darker}
+\end{figure}
+
+One option we may wish to be able to have is `quantising' the noise to some set
+of values. For example we may wish to have areas of a certain value of $n$ for a
+polygon. This can be achieved by mapping the noise from $0-1$ to $0-n$ and
+rounding to the closest integer. This was happening implicitly with the
+histogram above. We can see that because the distribution is unimodal the most
+common values will be those towards the center of the range.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.4\textwidth]{noiseQuantised}
+\caption{This sample contains only ten colours}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.4\textwidth]{noiseScaleUnquantised}
+\hspace{0.2cm}
+\includegraphics[width=.4\textwidth]{noiseScaleQuantised}
+\caption{Unquantised and quantised noise at 0.001 noiseScale}
+\label{0.001scale}
+\end{figure}
+
+This effect is much more obvious when the noise scale is a lot smaller, this
+would then allow for discrete regions between two integer values for a
+parameter. What if we don't want discrete regions and instead something more
+like a multimodal distribution i.e. smoothing applied between edges?
+
+We can use a waveform such as the sawtooth to achieve `smoothing' by using it to
+estimate rounding, adding the value to the wave produces something approximating
+the `staircase' function of piece-wise rounding. To do this we can use additive
+synthesis:
+
+$$x + \frac{1}{\pi} (-\sum^\infty_{k=1} \frac{\sin(2k \pi x)}{k})$$
+
+To use this in code we take only some number of terms, this determines the
+accuracy of the rounding, the lower the more `smooth', i.e. inexact the output:
+\begin{lstlisting}[language=JavaScript]
+function approx_round(value, terms) {
+    let result = value;
+    
+    var innerSum = -sin(2 * PI * value);
+    for (i = 2; i <= terms; i++)
+        innerSum += (sin((i * 2) * PI * value) / i)
+
+    result += innerSum / PI;
+
+    return result;
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.2\textwidth]{noiseRounded}
+\hspace{0.2cm}
+\includegraphics[width=.2\textwidth]{noiseAlmostRounded100}
+\hspace{0.2cm}
+\includegraphics[width=.2\textwidth]{noiseAlmostRounded20}
+\hspace{0.2cm}
+\includegraphics[width=.2\textwidth]{noiseAlmostRounded1}
+\caption{Rounded discretely, Terms = 100, Terms = 20, Terms = 1}
+\end{figure}
+
+At such a large scale the difference is hard to percieve but when using the
+example in \autoref{0.001scale} there's a clear `smoothing' in the boundaries.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=.3\textwidth]{noiseScaleAlmost}
+\hspace{0.2cm}
+\includegraphics[width=.3\textwidth]{noiseScaleAlmost10}
+\hspace{0.2cm}
+\includegraphics[width=.3\textwidth]{noiseScaleAlmost1}
+\caption{Terms = 100, Terms = 10, Terms = 1}
+\end{figure}
+
+Implmenting this such that noise controlls the number $n$ (verticies in a
+polygon) we can get results like this (note that the background is shaded darker
+for lower values of $n$ and lighter for higher values of $n$)
+\begin{figure}[H]
+\centering
+\includegraphics[width=.4\textwidth]{noisewithPolygons}
+\hspace{0.2cm}
+\includegraphics[width=.4\textwidth]{noisewithPolygons1term}
+\caption{Terms = 20, Terms = 1}
+\end{figure}
+
+With user interaction this scheme creates the feeling of moving through regions
+of these differernt values of $n$ and the parameter for the number of terms
+allows for adjustments to be made about how `hard' or `soft' the borders between
+these regions look.
+
+\subsection{Dynamical Systems}
+In a 2D space (x,y) we can find a set of functions that return a dimension
+higher. These are complex functions. For example the mandlebrot set, 
