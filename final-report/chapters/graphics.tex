@@ -171,9 +171,6 @@ Similarly, fractals may be useful for their self-similarity. Given we're working
 with a grid, the ability to have self-similar properties may be considered to be
 aesthetically useful.
 
-%dynamical systems and fractals time
-
-
 This leads to the choice between having each session using the software be
 either random in some sense or the same every time. Ideally given a random
 option to fulfil the ability to recall previous sessions, a seed would be given.
@@ -188,16 +185,15 @@ between extremes, or defined regions in which values are high.
 \verb|p5js|'s built-in noise function is a perlin noise generator. You can pass
 it up to three coordinates. Perlin noise was designed for computer graphics
 \footnote{And won an Oscar for "allow[ing] computer graphics artists to better
-represent the complexity of natural phenomena"}, and is relatively simple,
+represent the complexity of natural phenomena" \citep{nyu_perlin}}, and is relatively simple,
 generating a random grid of vectors and then computing the dot product vectors
 and their offsets, then finally interpolating to create a more smooth image.
+
 \verb|p5js| also provides a \verb|noiseDetail()| method that provides some
 control over the 'texture' of the noise. Also for reproducibility
 \verb|noiseSeed()| allows the programmer to set a seed value for the noise.
 The \verb|noise()| function takes three coordinate arguments and outputs a
 number between $0-1$
-
-%https://mrl.cs.nyu.edu/~perlin/doc/oscar.html#noise
 
 \begin{figure}[H]
 \centering

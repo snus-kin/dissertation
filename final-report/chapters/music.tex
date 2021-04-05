@@ -93,3 +93,83 @@ Creating these methods in software are fairly straightforward when there is
 already some digital signal processing in place; p5.js has a library called
 \verb|Tone.JS| which handles a lot of the practical elements of sound
 generation.
+
+\section{Sequencing}
+To create a sequence I considered a couple of options, to have a fixed note
+sequence for example. This would perhaps be too static and not fit with the idea
+of the project being generative art. Another simple option was to make notes
+completely random, this tends to sound very `robotic' like a Sci-Fi movie
+control panel. There could also be a random choice within a set of consonant
+notes (i.e. that of a chord) this is a better idea because there's less chance
+of a `bum note' (one that sounds out of place).
+
+An extension of this idea is to use Markov Chains to model music in
+\citep{ballstate2016} for example, they analyse Bach, Mozart, Palestrina, and
+Beethoven to create a set of transition matrices for their chord progressions.
+In this example chord progressions are used but the method can easily be adapted
+to note progressions too. 
+
+For my sequence I picked six possible tones, expressed as intervals from a base
+tone, as $1, 1.2, 1.25, 1.5, 1.6, 2$ these represent unison, a minor third, a
+major third, perfect fifth, and a minor sixth, and the octave (all
+just-intonation). These tones were picked because they were the intervals in
+5-limit that didn't have recurring decimals.\footnote{Ultimately this is arbitrary but
+ends up fitting the definition of an augmented scale, this type of scale was
+used more extensively in the 20th Century in Jazz, it was also used in Listz's
+`Faust's Symphony'. Another way of thinking about it is two major triads above a
+base pitch (e.g. C E G and E Eb Ab).} Each tone is also then affected by the
+interval generated above to create a possible series of tones that depend on the
+parameters of the program.
+
+To create a Markov chain sequence first a matrix of probabilities that represent
+the chain needs to be created. This defines the possible transitions between
+notes and the probabilities of them, each row should add to give a total
+probability of $1$. Changing the values in this matrix can therefore be thought
+of as composing what series of tunes are possible and probable.
+
+%TODO perhaps this needs updating eventually
+\[
+\begin{blockarray}{ccccccc}
+    & 1 & 1.2 & 1.25 & 1.5 & 1.6 & 2\\
+    \begin{block}{c (cccccc)}
+        1    & 0  & 0.2& 0.5& 0.1& 0.1& 0.1\\
+        1.2  & 0.1& 0  & 0.5& 0.1& 0.2& 0.2\\
+        1.25 & 0.3& 0  & 0  & 0.6& 0.1& 0.1\\
+        1.5  & 0.3& 0.2& 0.2& 0  & 0  & 0.2\\
+        1.6  & 0.2& 0.2& 0.2& 0.3& 0  & 0.1\\
+        2    & 0.4& 0.1& 0.2& 0.2& 0.1& 0  \\
+    \end{block}
+\end{blockarray}
+\]
+
+This represented in code becomes: 
+\begin{lstlisting}[language=Javascript]
+const markovObject = {
+                        1:    [0  , 0.2, 0.5, 0.1, 0.1, 0.1],
+                        1.2:  [0.1, 0  , 0.5, 0.1, 0.2, 0.2],
+                        1.25: [0.3, 0  , 0  , 0.6, 0.1, 0.1],
+                        1.5:  [0.3, 0.2, 0.2, 0  , 0  , 0.2],
+                        1.6:  [0.2, 0.2, 0.2, 0.3, 0  , 0.1],
+                        2:    [0.4, 0.1, 0.2, 0.2, 0.1, 0  ]
+                    };
+\end{lstlisting}
+
+Using an object allows for fast lookup, then each index in the object refers to
+an index of the keys of the object. So picking the next is simple, generate a
+random number from 0 to 1 and then accumulate probability until we reach it:
+
+\begin{lstlisting}[language=Javascript]
+probList.forEach((e, i) => {
+    if (picked >= acc && picked < acc + e) {
+        intervalIndex = i;
+    }
+    acc += e;
+});
+\end{lstlisting}
+
+Where \verb|probList| is the array referenced by the key of the current note in the
+object and \verb|intervalIndex| is the index of the array of keys in the object.
+
+Overall this is a very simple method for creating note sequences but is quite
+effective for limiting the number of possible transitions with a lot of
+flexibility.  
