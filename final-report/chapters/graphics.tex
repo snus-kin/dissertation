@@ -7,7 +7,34 @@ parameters tell me where a point should or shouldn't be and what other points it
 should or shouldn't connect to.
 
 The problem of how they are displayed is another issue, how can we convey the
-idea of moving through a space when the space is simply a grid? 
+idea of moving through a space when the space is simply a grid? The points must
+move smoothly between configurations to give the illusion of being in a
+landscape rather than that of a series of static images.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{flatlandsphere}
+    \caption{Figure reproduced from Flatland \citep[p.112]{abbott1885flatland}}
+\end{figure}
+
+The landscape is not just 2D, parameters each constitute a dimension, when one is
+changing we see a 2D slice of the multi-dimensional world as in the book
+`Flatland' ``You cannot indeed see more than one of my sections, or Circles, at
+a time; for you have no power to raise your eye out of the plane of Flatland;
+but you can at least see that, as I rise in Space, so my sections become
+smaller. See now, I will rise; and the effect upon your eye will be that my
+Circle will become smaller and smaller till it dwindles to a point and finally
+vanishes.'' \citep[p.112]{abbott1885flatland} A shape (polygon in this instance,
+sphere in the book) cuts through the plane to show `slices' of itself. Here we
+are in `flatland' and the parameter space we create allows us to see the work as
+slices of a higher-dimensional shape (than 2D). 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.5\textwidth]{3d}
+    \caption{Here the `z' parameter increases, each `layer' is transformed
+    between smoothly}
+\end{figure}
 
 \section{Anatomy of the Work}
 Viner's pen plotter work was created by a set of programs, created in
@@ -21,10 +48,23 @@ mathematical thinking going on in the development.
 
 \section{Polygons}
 One aspect the program should be able to do is to grow and shrink polygons
-between different number of verticies. To achieve this a polygon is inscribed on
-a circle. The points of this polygon of $n$ verticies on the circle are simply given by
-$$(x, y) = (\cos(\frac{2k \pi}{n}), \sin(\frac{2k\pi}{n})) \text{ where } k = 0,
-1, \ldots, \lfloor n \rfloor$$ 
+between different number of verticies. Viner's work uses many different number
+of verticies between images, so we should be able to reproduce this by allowing
+a smooth transition between polygons. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{triangleViner}
+    \hspace{0.2cm}
+    \includegraphics[width=0.45\textwidth]{octagonViner}
+    \caption{Two viner showing the use of polygons}
+\end{figure}
+
+
+To achieve this a polygon is inscribed on a circle. The points of this polygon
+of $n$ verticies on the circle are simply given by $$(x, y) = (\cos(\frac{2k
+\pi}{n}), \sin(\frac{2k\pi}{n})) \text{ where } k = 0, 1, \ldots, \lfloor n
+\rfloor$$ 
 
 We can note that for integer values of $n$ the rotation will be complete, for
 non-integer values of $n$ this also works given that we used the floor of $n$ as
@@ -76,6 +116,7 @@ To do this I have adapted John Stell's work on Viner in his workshops
 system where the grid is centred on a given \verb|x,y| coordinate. Essentially
 there is a screen, and for every vertex at a column and row their relative
 coordinates need to be calculated. This is simple with the following statement:
+
 
 
 %the immediate issue here is that we want the grid to be drawn from the center out.
@@ -136,17 +177,12 @@ point.
 
 \begin{figure}[H]
 \centering
-\subfloat{\tikz[remember
-picture]{\node(1AL){\includegraphics[width=.4\textwidth]{PoC3}};}}%
-\hspace*{2cm}%
-\subfloat{\tikz[remember
-picture]{\node(1AR){\includegraphics[width=.4\textwidth]{PoC2}};}}
-\caption{The user presses `d' for a short time, increasing the `x' parameter}
+\includegraphics[width=.4\textwidth]{PoC3}
+\hspace*{0.5cm}
+\includegraphics[width=.4\textwidth]{PoC2}
+\caption{The user presses `a' for a short time, decreasing the `x' parameter}
 \label{demomovement}
 \end{figure}
-\tikz[overlay,remember picture]{\draw[-latex,thick] (1AL) -- (1AL-|1AR.west)
-node[midway,below]{};} 
-
 
 \section{Landscape Generation}
 % Talk about landscape analogy
@@ -187,7 +223,8 @@ it up to three coordinates. Perlin noise was designed for computer graphics
 \footnote{And won an Oscar for "allow[ing] computer graphics artists to better
 represent the complexity of natural phenomena" \citep{nyu_perlin}}, and is relatively simple,
 generating a random grid of vectors and then computing the dot product vectors
-and their offsets, then finally interpolating to create a more smooth image.
+and their offsets, then finally interpolating to create a more smooth image
+\citep{10.1145/566570.566636}.
 
 \verb|p5js| also provides a \verb|noiseDetail()| method that provides some
 control over the 'texture' of the noise. Also for reproducibility
@@ -296,6 +333,11 @@ of these differernt values of $n$ and the parameter for the number of terms
 allows for adjustments to be made about how `hard' or `soft' the borders between
 these regions look.
 
-\subsection{Dynamical Systems}
-In a 2D space (x,y) we can find a set of functions that return a dimension
-higher. These are complex functions. For example the mandlebrot set, 
+This approach is, I believe somewhat novel, as most techniques for adjusting
+noise is usually done at a whole-image level. This method is point-wise and thus
+can work for each polygon or vertex in the grid we have defined. In the field of
+signal processing the concept of `quantisation noise' is similar but reversed,
+taking a contiuous signal and analysing the error in the digital discrete
+signal. Here we are designing a function for an artistic application, and I do
+not think that it has application to the field of signal processing as it works
+on discrete to discrete transformations and not continous to discrete.

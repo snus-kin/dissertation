@@ -31,17 +31,49 @@ consider the images to be working or not: the program has become my personal
 aesthetic.'' \cite{viner_artiststatement}
 
 These parameters may for example control the spacing of the grid, the
-displacement of each point, the noise present at each vertex and so on. These
+displacement of each point, the number of vertices in a shape, so on. These
 parameters should be able to be changed to create some sort of `landscape' or
-`topology' that the user can explore through manipulating the program. Later on
-I will detail methods for users being able to manipulate the parameters and
+`topography' that the user can explore through manipulating the program
+affecting both the entire grid and single points within it. Later on I will
+detail methods for users being able to manipulate the parameters and
 considerations that need to be made with respect to usability.
+
+\begin{figure}[H]
+    \includegraphics[width=\textwidth]{parametercomparison}
+    \caption{Example of changing parameters from an initial state}
+\end{figure}
 
 The program should allow for a user to generate such images and recall them
 later. Ideally, the program should be more than just a show of the potential
 configurations of Viner's work and itself be a unique experience for the user
 and work to create a dialogue with the original work and contextualise the
 user's understanding of his work.
+
+Users of this program may be for example: artists, art scholars, museum guests,
+museum curators. Each of these have different goals; the artist may be seeking
+to understand the work and find inspiration in it, the art scholar may be
+looking for an extended context to the work to help comprehend the thought
+process Viner used and relationships between each piece. The museum guest may be
+at an exhibition (perhaps a virtual one) of Viner's work and have this presented
+as a piece of work that helps them understand the spaces that are explored by
+the work. A curator might be evaluating the program for display alongside
+Viner's work.
+
+Using the idea of a virtual museum exhibition of Viner's work: this could be
+presented alongside a collection of images to show the relationships between
+each image where in a physical museum this may be able to be explained through
+the placement of the images in the world, online this is harder to convey with
+just a gallery on a web page. Therefore the program should allow for a user to
+both have a casual `play' with it and to also allow tuning parameters to create
+images and exploring the images in-depth. Further to aide in the comparative
+aspect and relationships between images recall and retracing must be possible.
+
+In the context of the art itself there are requirements such as the flexibility
+of the shape on screen to take on shapes but be ultimately constrained. Since we
+are replicating a range of possibilities of work of a pen plotter for example,
+it doesn't make sense for vertices to be very far apart (or even off of the
+`page'). This will require development of a set of tools that can be used with
+the application to calculate point-wise the positions of vertices.
 
 \section{Objectives \& Deliverables}
 \subsection{Objectives}
