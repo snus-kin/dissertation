@@ -341,3 +341,75 @@ taking a contiuous signal and analysing the error in the digital discrete
 signal. Here we are designing a function for an artistic application, and I do
 not think that it has application to the field of signal processing as it works
 on discrete to discrete transformations and not continous to discrete.
+
+\section{Navigation}
+%TODO write about higher-dimenionality
+%TODO image here ? top has the other, can i reproduce from some game?
+Navigating higher-dimensional space is of practical interest because a lot of
+data is higher-dimensional, for example the field of machine learning for
+example deals with very high dimensional data. Tools like `\verb|ggobi|' exist
+to help explore multi-variate data \citep{swayne:dsc2003} which tend to
+disregard spacial relations of points in favour of clustering based on shared
+properties. A novel method is that of the grand tour, through which a series of
+scatter plots are projected orthogonally into 2D subspaces from the
+higher-dimensional space and moved then between continuously to describe
+multi-variate data \citep{asimov1985grand}.
+
+Whilst these approaches are useful for data, what we're dealing with here is
+generating spaces to explore, these spaces are less about trends in data and
+more about geometric exploration through many continuous parameters.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{marioturns}
+    \caption{Mario turns $90^\circ$ around the z-axis (\emph{Super Paper Mario
+    (2007) pub. Nintendo})}
+\end{figure}
+
+Video games also have explored higher-dimensional spaces. An
+interesting concept is that of 2D characters being able to navigate 3D spaces.
+\emph{Super Paper Mario (2007)} for the Nintendo Wii is an example of this, the
+player can turn the world 90 degrees about the y-axis to explore the depth of
+the z-axis and progress through the game. An extension of this from a 3D
+character turning 90 degrees and being able to explore a 4th Dimension is
+present in the unreleased game \emph{Miegakure} in which the player can move
+through the 4th Dimension using the controller, to help orient the player a
+graphic\footnote{Which the developer tells me is based on an astrolabe} is
+displayed below the controlled character showing the position of the slice of
+the 4D world, these slices are like the 2D slices we can see in MRI imaging but
+in 3D.
+
+Whilst these worlds explore pre-made or procedurally generated assets (models,
+textures, sprites, etc.), and this program instead will explore moving through
+various parameters, ideas for how the user can interface with the program to
+understand where exactly they are.
+
+\subsection{Graphical Prompts}
+A simple idea to allow the user to recall where in the parameter space they were
+could be a spider / radar plot, or parallel coordinates plot. For our intents these
+are the same as we're only displaying a single set of parameters the spider plot
+is just a `round' version of the parallel coordinates plot. This could exist on
+the screen somewhere and change as the user moved around the parameter space,
+and would allow the user to recall approximately where they were. The spider
+diagram could also be `extruded' from how it looked at every point to create a
+3D model that represented how you moved through the parameters.
+
+\subsection{Controls}
+The above mentioned video games allow for the user to move through the space by
+only letting the user worry about at most 3 dimensions at any one time, and
+regarding the others as static when moving through them, this allows the user to
+control the movement with traditional controls (either a games controller or
+keyboard and mouse).
+
+In \autoref{demomovement}, the \verb|WASD| style of control, popular in video
+games is used. This will be familiar to people who have played video games but
+not to people who haven't, for whom it may make sense to use the arrow keys.
+It's also important to note that in that particular demo the `d' key increases
+\verb|x|, this gives the feeling that the world is moving `beneath' you instead
+of you moving the world itself; if the controls were flipped such that `d'
+decreased \verb|x|, it would instead feel like you were moving the world. 
+
+Another option would be something like an array of knobs, these could encode one
+parameter each, and like a scientific instrument be `tuned'. However this relies
+on specialist hardware. This would probably feel less like `moving' through a
+space and more exploring a range of possibilities.
