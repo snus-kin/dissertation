@@ -96,6 +96,9 @@ navigate the `landscape' by providing cues.
     \item Develop a catalogue of techniques to be used in generative art and
         music, and to evaluate each for relevance to the project
     \item Create an interface which allows users to navigate generated spaces
+    \item Create an audio component which works in tandem with the graphical aspect
+        of the program to aide navigation and provide an extra layer to the
+        experience
     \item Create a system such that users are able to recall a state they were
         in, and find it again
     \item As an extension of that a way of seeing all previous states, or a map
@@ -115,20 +118,18 @@ previous session's movements and recall what they saw. This should be easy to
 understand and allow for users to see configurations of parameters they like and
 save them somehow.
 
-\section{Initial Plan}
+\section{Plan}
 Being that this project is exploratory in nature, an iterative approach to
 development makes sense, with small prototypes being created, explored, and
 built on quickly. As such I have allocated time for ideas to be developed in.
 
-To start I will learn about processing, this library for Java makes it simple to
-get a framework for graphics, of which the logical can be easily moved to some
-other framework if need be. Since my tutor's previous work was written in
+To start I will learn about processing, a library for Java which makes it simple
+to get a framework for graphics, of which the logical can be easily moved to
+some other framework if need be. Since my tutor's previous work was written in
 processing, there is already some groundwork complete to build off of. It may be
 worth exploring other options like \verb|p5.js| for portability and the ability
 to embed into webpages for the final implementation, \verb|p5.js| offers some
-more mature sound libraries, as well as other web technologies which may be
-useful for future explorations such as Geo-location and portability to mobile
-devices.
+more mature sound libraries such as \verb|Tone.js|.
 
 \begin{center}
     \begin{ganttchart}[vgrid]{1}{12}
@@ -143,6 +144,11 @@ devices.
         \ganttbar{Writing Report}{1}{12}
     \end{ganttchart}
 \end{center}
+
+I will use \verb|git| for version control, during development commits will be
+pushed to a private Github repository which, when complete will be made public
+and the \verb|github.io| website-hosting feature should allow for the project to
+be available in full on Github.
 
 \section{Risk Mitigation}
 Since this project is fairly isolated in nature, there aren't a lot of risks to
