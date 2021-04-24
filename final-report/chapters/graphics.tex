@@ -346,7 +346,6 @@ on discrete to discrete transformations and not continous to discrete.
 
 \section{Navigation}
 %TODO write about higher-dimenionality
-%TODO image here ? top has the other, can i reproduce from some game?
 Navigating higher-dimensional space is of practical interest because a lot of
 data is higher-dimensional, for example the field of machine learning for
 example deals with very high dimensional data. Tools like `\verb|ggobi|' exist
@@ -415,3 +414,34 @@ Another option would be something like an array of knobs, these could encode one
 parameter each, and like a scientific instrument be `tuned'. However this relies
 on specialist hardware. This would probably feel less like `moving' through a
 space and more exploring a range of possibilities.
+
+\section{User Interface}
+The final graphical element to consider is how the user interacts with the HTML
+elements that control various functions. I created: an upload and download button
+for interaction with the history; a mute button and volume slider for the audio;
+and a help screen that explains the key controls and what the program is.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{webinterface}
+    \caption{Web interface with buttons}
+\end{figure}
+
+I decided to keep the buttons simple, and without text so as to not distract
+from the main graphical part of the program. They also animate when the user
+hovers over them (they gain a black border and grey background) to indicate they
+are able to be clicked.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{helpmenu}
+    \caption{Help menu}
+\end{figure}
+
+The help menu expands when the `?' button in the top right is hovered and
+retracts when the user un-hovers the help menu. The background is slightly
+transparent so as to not block the rest of the program. I produced a graphic of
+a keyboard to help explain where the keys are located on the users computer and
+a flex-box list of keys (that adapt to different screen widths). I also included
+a short explaination of how the history tree works and what the audio controls
+do.

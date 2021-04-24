@@ -87,6 +87,13 @@ piece online the same applies, with audio they can be more immersed in the art.
 Also, since the audio relates to the graphics on the screen, it can help users
 navigate the `landscape' by providing cues.
 
+Less focused on the exhibition aspect, through this report techniques that are
+applicable to other works of generative art and music will be outlined. The idea
+being that they may be reused. In this sense the program also is for artists
+wishing to create their own pieces of work, and by presenting these techniques
+may use them for their own ends. This also means that code should be reusable
+and understandable.
+
 \section{Objectives}
 % These should be testable objectives
 \begin{itemize}
@@ -101,8 +108,8 @@ navigate the `landscape' by providing cues.
         experience
     \item Create a system such that users are able to recall a state they were
         in, and find it again
-    \item As an extension of that a way of seeing all previous states, or a map
-        of what the user had seen in a session
+    \item Create a system such that users can download and upload the collection
+        of states as described in the previous objective
 \end{itemize}
 
 \section{Deliverables}
@@ -113,42 +120,75 @@ sort of topography should be conveyed and the visual should look similar to
 Viner's work. The audio will help the user navigate the space and correspond to
 what is on the screen graphically in some way.
 
-There should be another mode within the program that allows users to explore the
-previous session's movements and recall what they saw. This should be easy to
-understand and allow for users to see configurations of parameters they like and
-save them somehow.
+The application should work in the browser, and be as compatible as possible
+with different screen sizes and web technologies, libraries allowing. Thus not
+requiring hosting with a web-browser, allowing for flexibility.
+
+The structure of the final product will consist of three main components: the
+graphics which consist mainly of the grid; the audio which will be linked to the
+parameters that generate the graphics; and the history / recall part which will
+deal with data structures associated with saving the state of the parameters.
+
+The graphics component is what will mainly utilise the \verb|p5js| library,
+although it will also be utilised in the history component. The audio part will
+mostly use the \verb|Tone.js| library.
 
 \section{Plan}
 Being that this project is exploratory in nature, an iterative approach to
 development makes sense, with small prototypes being created, explored, and
 built on quickly. As such I have allocated time for ideas to be developed in.
 
-To start I will learn about processing, a library for Java which makes it simple
-to get a framework for graphics, of which the logical can be easily moved to
-some other framework if need be. Since my tutor's previous work was written in
-processing, there is already some groundwork complete to build off of. It may be
-worth exploring other options like \verb|p5.js| for portability and the ability
-to embed into webpages for the final implementation, \verb|p5.js| offers some
-more mature sound libraries such as \verb|Tone.js|.
+To start I will learn about processing, a library for Java which is an
+artist-focused library for graphics and audio. Since my tutor's previous work
+was written in processing, there is already some groundwork complete to build
+off of. I will then switch to \verb|p5js|, a JavaScript library based on
+processing that is extremely similar but works in the browser. This switch will
+not take much time at all due to the program logic being identical. \verb|p5js|
+in the browser has the advantage of working with other JavaScript libraries well
+(such as \verb|Tone.JS|, the audio library I will be using) as well as having
+the flexibility that comes with HTML and CSS for the user interface.
 
 \begin{center}
-    \begin{ganttchart}[vgrid]{1}{12}
-        \gantttitle{Week}{12}\\
-        \gantttitlelist{1,...,12}{1} \\
-        \ganttbar{Learning Processing}{1}{2} \\
-        \ganttbar{Exploring Audio Ideas}{3}{4}
-        \ganttbar{}{7}{9} \\
-        \ganttbar{Exploring Polygon Drawing}{5}{9} \\
-        \ganttbar{Creating Proof of Concept demo with grid and audio}{6}{7} \\
-        \ganttbar{Final Proof of Concept before end of year}{9}{12} \\
-        \ganttbar{Writing Report}{1}{12}
+    \begin{ganttchart}[
+        vgrid,
+        y unit title=0.5cm,
+        y unit chart=0.5cm,
+        x unit=0.4cm,
+        milestone label font = \tiny,
+        title label font=\tiny,
+        group label font=\tiny,
+        bar label node/.style={text width=5cm,align=right,font=\scriptsize\RaggedLeft,anchor=east},
+        ]{1}{24}
+        \gantttitle{Week}{24}\\
+        \gantttitlelist{1,...,24}{1} \\
+        \ganttgroup{Semester 1}{1}{12}\\
+        \ganttmilestone{Initial report hand-in}{12}\\
+        \ganttgroup{Semester 2}{13}{24}\\
+        \ganttmilestone{Progress meeting}{19}\\
+        \ganttmilestone{Final hand-in}{24}\\
+        % Sem 1
+        \ganttbar{Learning processing}{1}{2} \\
+        \ganttbar{Exploring audio ideas}{3}{4} \ganttbar{}{7}{9} \\
+        \ganttbar{Exploring polygon drawing}{5}{9} \\
+        \ganttbar{Creating demo with grid and audio}{6}{7} \\
+        \ganttbar{Final PoC for init report}{9}{12} \\
+        \ganttbar{Writing init report}{1}{12}\\
+        % Sem 2
+        \ganttbar{Switch to p5js}{13}{13}\\
+        \ganttbar{Implement synth and audio}{13}{16} \ganttbar{}{19}{21}\\
+        \ganttbar{Implement history}{14}{18}\\
+        \ganttbar{Noise implementation}{18}{18}\\
+        \ganttbar{General graphical work}{19}{20}\\
+        \ganttbar{Create final UI}{20}{21}\\
+        \ganttbar{User Testing}{22}{22}\\
+        \ganttbar{Write final report}{12}{24}
     \end{ganttchart}
 \end{center}
 
 I will use \verb|git| for version control, during development commits will be
 pushed to a private Github repository which, when complete will be made public
-and the \verb|github.io| website-hosting feature should allow for the project to
-be available in full on Github.
+and the \verb|github.io| website-hosting feature will allow for the project to
+be available in full on Github for user testing and marking.
 
 \section{Risk Mitigation}
 Since this project is fairly isolated in nature, there aren't a lot of risks to
