@@ -184,7 +184,11 @@ user said that the music reminded them of ``90s Brian Eno quite a bit''.
 A few users commented that the audio did not sound at all, it seemed to be
 mostly Google Chrome users. This would require extra testing before deployment
 to a remote gallery but, again, might not be a problem on a single installation
-where only one computer is used.
+where only one computer is used. I believe this is an issue about how
+auto-playing sound is allowed to work in the browser (it needs to be triggered
+from a user-controlled context first), so I added an extra instruction to press
+the space bar to play sound (which was mapped to toggle Tone.JS's transport);
+but I could not reproduce this issue and therefore cannot test that it works.
 
 \subsection{History}
 Users generally understood the history function, only 10\% said that it did not

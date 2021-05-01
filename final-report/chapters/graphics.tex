@@ -1,15 +1,13 @@
 \chapter{Graphics}
+To create the graphics we need to first analyse Viner's work to see the
+characteristics that need to be replicated; we then should create a method for
+drawing the grid of polygons. The verticies of the polygons need a method to be
+offset and the number of verticies in the polygon changed.
 
-There are two problems to consider here, how points on a grid are generated, and
-how they are displayed. To generate points there needs to be a method of
-procedural generation, i.e. creating an algorithm that can given a set of
-parameters tell me where a point should or shouldn't be and what other points it
-should or shouldn't connect to.
-
-The problem of how they are displayed is another issue, how can we convey the
-idea of moving through a space when the space is simply a grid? The points must
-move smoothly between configurations to give the illusion of being in a
-landscape rather than that of a series of static images.
+Where Viner's work was a static image and our is dynamic; we should also
+consider how the image changes as parameters change. The points must move
+smoothly between configurations to give the illusion of being in that
+`landscape' rather than that of a series of static images.
 
 \begin{figure}[H]
     \centering
@@ -17,8 +15,8 @@ landscape rather than that of a series of static images.
     \caption{Figure reproduced from Flatland \citep[p.112]{abbott1885flatland}}
 \end{figure}
 
-The landscape is not just 2D, parameters each constitute a dimension, when one is
-changing we see a 2D slice of the multi-dimensional world as in the book
+The landscape is not just 2D, parameters each constitute a dimension, when one
+is changing we see a 2D slice of the multi-dimensional world as in the book
 `Flatland' ``You cannot indeed see more than one of my sections, or Circles, at
 a time; for you have no power to raise your eye out of the plane of Flatland;
 but you can at least see that, as I rise in Space, so my sections become
@@ -40,11 +38,14 @@ slices of a higher-dimensional shape (than 2D).
 Viner's pen plotter work was created by a set of programs, created in
 \verb|FORTRAN| using a set of subroutines called \verb|PICASO| (PIcture Computer
 Algorithms SubroutineOriented) \citep{lycett_2016}, this was essentially a
-line-drawing library, similar to what we are using processing / p5js for.
-\verb|PICASO|'s use by Viner isn't well documented but the manual
-\citep{picaso_manual} has many subroutines for transforming vertices according
-to some rules. Some notes on Viner's work indicate there was definitely
-mathematical thinking going on in the development.
+graphics library, similar to what we are using processing / p5js for. This
+library was presented as part of J. A. Vince as part of their PhD.
+\verb|PICASO|'s use by Viner isn't well documented but the manual has many
+subroutines for transforming vertices according to some rules (affine
+transformations, morphs between shapes) \citep{picaso_manual}. Some pencil notes
+on Viner's work indicate there was definitely mathematical thinking going on in
+the development, but without access to the code listings, it is hard to say
+exactly how the images were generated.
 
 \section{Polygons}
 \label{Polygons}
@@ -58,7 +59,7 @@ a smooth transition between polygons.
     \includegraphics[width=0.45\textwidth]{triangleViner}
     \hspace{0.2cm}
     \includegraphics[width=0.45\textwidth]{octagonViner}
-    \caption{Two viner showing the use of polygons}
+    \caption{Two viner pieces showing the use of polygons}
 \end{figure}
 
 
@@ -73,7 +74,6 @@ the limit giving us an incomplete polygon, we can use the fact we have the first
 coordinate to close the shape. This gives us the smooth transition between
 integer values of $n$.
 
-% figure showing this
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.2\textwidth]{n4}
@@ -92,84 +92,75 @@ let y = innerHeight/2;
 let n = 4;
 let r = 300;
 
-let theta = 3*QUARTER_PI;
+let theta = (3*QUARTER_PI) - TWO_PI/n;
 dTheta = TWO_PI/n;
 
 beginShape()
-    vertex(x + r*cos(theta), y + r*sin(theta));
-    for (i = 1; i <= n; i++) {
+    for (i = 0; i <= n; i++) {
         theta += dTheta;
         vertex(x + r*cos(theta), y + r*sin(theta));
     }
 endShape(CLOSE);
 \end{lstlisting}
 
-An offset to each $(x,y)$ pair can be made, calculated within the for loop, to
-transform the shape away from regular polyhedra (when $n$ is an integer).
+An offset to each $(x,y)$ pair can be made inside the loop. A function to limit
+the maximum offset should be created too. Here is an example of using noise to
+calcuate the offsets.
+
+\begin{center}
+\begin{tabular}{c}
+\begin{lstlisting}[language=JavaScript]
+ox = limit(noise(sx*cos(theta), sz)*10, 2*gridSize);
+oy = limit(noise(sy*sin(theta), sz)*10, 2*gridSize);
+\end{lstlisting}
+\end{tabular}
+\end{center}
+
+The limit function is a simple sine calculation ensuring the offsets don't become
+larger than $\pm$ 2 times the grid size.
+
+\begin{lstlisting}[language=JavaScript]
+function limit(value, amplitude) {
+    return amplitude * sin((PI / amplitude) * value);
+}
+\end{lstlisting}
 
 \section{The Grid}
-With the motif of the grid being the most obvious visible thing in Viner's art,
-there needs to be a way to actually draw a grid to the screen; ideally each
-vertex needs to be able to be separately controlled.
+The motif of a grid with changes present across the image is central to Viner's
+work, so a method of drawing this should be created.
 
-To do this I have adapted John Stell's work on Viner in his workshops
-\cite{stell_unpublished}, using an object-oriented approach; but have created a
-system where the grid is centred on a given \verb|x,y| coordinate. Essentially
-there is a screen, and for every vertex at a column and row their relative
-coordinates need to be calculated. This is simple with the following statement:
-
-
-
-%the immediate issue here is that we want the grid to be drawn from the center out.
-%How can we do this? A spiral? A space filling curve? We can't really
-%have negative indicies to lists.
-%
-%Create a seperate notion of 'columns' and 'rows' that draw and x and y
-%are infinite and inform what is to be rendered in those columns and rows
-%
-%How many columns and rows do we need? We define a grid size and it's n *
-%that How do we map x and y to this notion? We have a grid size so we can
-%work out how many are shown at a time, how to ensure that we are always
-%in the center?  Perhaps this means we don't actually need to worry about
-%where we are just what is rendered based on this. thus we let our x and
-%y values determine what is immediately under us but the rest of the
-%image renders around this
-
-%for now at least I want to be able to draw points at a (x, y) dependant
-%offset from the center of each point?
-%
-%center the grid on whatever x and y value we're at right now
+The center point of the grid is assigned a coordinate \verb|x,y,z| which is what
+is modified by the user when interacting with the program. The polygons around
+this point are calculated from that offset using the following calculation:
 
 \begin{center}
 \begin{tabular}{c}
-\begin{lstlisting}[language=java]
-sx = (x + (gridSize * ((cols/2) - i)));
-sy = (y + (gridSize * ((rows/2) - j)));
+\begin{lstlisting}[language=JavaScript]
+sx = (x + ((gridSize+gridSpacing) * ((cols/2) - i)));
+sy = (y + ((gridSize+gridSpacing) * ((rows/2) - j)));
+sz = (z + (gridSize * (cols/2)));
 \end{lstlisting}
 \end{tabular}
 \end{center}
 
-Where \verb|i,j| is the column and row value of the point, \verb|cols,rows|
+Where \verb|i,j| is the column and row value of the point, \verb|cols, rows|
 are the total number of columns and rows, and \verb|gridSize| is the pixel size
-of the grid (which is more of a guide than anything). The grid should also
-be centred on \verb|x,y| so calling a translate before drawing any points should
-be done:
+of the grid and the similarly for the \verb|gridSpacing|. 
 
+This leads to the idea of a `view window' of which the parameters in the program
+describe only the central polygon and the parameters for the others in the grid
+are calculated.
+
+The grid should also be centred on \verb|x,y| so calling a translate before
+drawing any points should be done:
 \begin{center}
 \begin{tabular}{c}
-\begin{lstlisting}[language=java]
-translate((width/2)+(0-x), (height/2)+(0-y));
+\begin{lstlisting}[language=JavaScript]
+translate((innerWidth/2) - x, (innerHeight/2) - y);
 \end{lstlisting}
 \end{tabular}
 \end{center}
 
-All of this leads to a system where the centre point has a given coordinate and
-we can find that coordinate for all other points around it, this also means we
-can interpolate any parameters from the program to what should be expected at a
-given coordinate; or we can also generate a terrain away from the main graphics
-thread and draw them to the screen at a given coordinate.
-
-\subsection{Demo}
 Here a grid is prepared with fixed parameters that create distortion around
 \verb|x=0, y=0|. This point is fixed, and when the program is interacted with
 the world moves beneath the player rather than the point of distortion being
@@ -185,10 +176,18 @@ point.
 \label{demomovement}
 \end{figure}
 
+We then use \verb|sx, sy| to draw a polygon using the method described
+previously, with the \verb|sx, sy| as the center.
+
+Another possibility was considered to make the grid a simple series of verticies
+and have a method to draw lines between them according to some rule. This was
+ultimately rejected due to much more complexity when moving between number of
+verticies in the polygon dynamically.
+
 \section{Landscape Generation}
 \label{landgen}
 % Talk about landscape analogy
-The program should generate a `landscape' or `topology', this is an analogy for
+The program should generate a `landscape' or `topography', this is an analogy for
 a space that has an continuous change of the parameters across them. `Landscape'
 is apt because we're exploring a set of features generated by the program much
 like if you were to look at a topographic map. The user should have the feeling
@@ -200,25 +199,33 @@ This is the main question of how the program will work on a technical level, how
 can we create an algorithm or mathematical model that explores the spaces that
 Viner's work set out to create?
 
+We need to be able to take the parameters of the program and reduce them down to
+a single value for use to create an offset or number of vertices in a shape.
+
 Dynamical systems may be of interest, and allow for a system to be created where
 a state evolves into other states following some rules. These states can be
 deterministic which is important for the objective that we have of recall, but
-can also be chaotic, which may be aesthetically desirable.
-
-Similarly, fractals may be useful for their self-similarity. Given we're working
-with a grid, the ability to have self-similar properties may be considered to be
-aesthetically useful.
+can also be chaotic, which may be aesthetically desirable. Similarly, fractals
+may be useful for their self-similarity. Given we're working with a grid, the
+ability to have self-similar properties may be considered to be aesthetically
+useful. Neither of these however would be particularly flexible with respect to
+the fact that one function would need to be picked and used throughout the whole
+program. Also, to model a landscape with the right sized `regions' may prove
+difficult.
 
 This leads to the choice between having each session using the software be
 either random in some sense or the same every time. Ideally given a random
 option to fulfil the ability to recall previous sessions, a seed would be given.
-It seems then that the random choice contains the static choice and should be
-the one to be carried out.
+
+For this reason noise is a good solution, many noise implementations allow you
+to specify a seed and thus have this property of reproducibility between
+sessions. Graphical implementations of noise are often created with the express
+reason of looking natural and organic.
 
 \subsection{Noise}
-One possible function to consider here is a computer-graphics oriented noise
-implementation. A desireable property is that of a fairly smooth gradient
-between extremes, or defined regions in which values are high.
+A desireable property is that of a fairly smooth gradient between extremes, or
+defined regions in which values are high and low. This will help to demarkate
+`regions' on a map (think, the mountains, the foothills, and the plains). 
 
 \verb|p5js|'s built-in noise function is a perlin noise generator. You can pass
 it up to three coordinates. Perlin noise was designed for computer graphics
@@ -345,20 +352,26 @@ not think that it has application to the field of signal processing as it works
 on discrete to discrete transformations and not continous to discrete.
 
 \section{Navigation}
-%TODO write about higher-dimenionality
-Navigating higher-dimensional space is of practical interest because a lot of
-data is higher-dimensional, for example the field of machine learning for
-example deals with very high dimensional data. Tools like `\verb|ggobi|' exist
-to help explore multi-variate data \citep{swayne:dsc2003} which tend to
-disregard spacial relations of points in favour of clustering based on shared
-properties. A novel method is that of the grand tour, through which a series of
-scatter plots are projected orthogonally into 2D subspaces from the
-higher-dimensional space and moved then between continuously to describe
-multi-variate data \citep{asimov1985grand}.
+Because this program deals with a set of parameters that change over time, it is
+a good idea to look at concepts for navigating higher-dimensional space that
+already exist; in this we can learn how other people have approached this. If we
+imagine each parameter in the program as a spatial dimension, there is a body of
+knowledge available regarding this because many fields rely on large
+multi-variate data; for example the field of machine learning for example deals
+with very high dimensional data in feature vectors.
+
+Tools like `\verb|ggobi|' exist to help explore multi-variate data
+\citep{swayne:dsc2003} which tend to disregard spacial relations of points in
+favour of clustering based on shared properties. A novel method is that of the
+grand tour, through which a series of scatter plots are projected orthogonally
+into 2D subspaces from the higher-dimensional space and moved then between
+continuously to describe multi-variate data \citep{asimov1985grand}.
 
 Whilst these approaches are useful for data, what we're dealing with here is
 generating spaces to explore, these spaces are less about trends in data and
-more about geometric exploration through many continuous parameters.
+more about geometric exploration through many continuous parameters. In this, we
+want all of the data of the parameters to be visible at once, meaning these data
+visulisation methods are not as useful for our purpouses.
 
 \begin{figure}[H]
     \centering
@@ -367,18 +380,17 @@ more about geometric exploration through many continuous parameters.
     (2007) pub. Nintendo})}
 \end{figure}
 
-Video games also have explored higher-dimensional spaces. An
-interesting concept is that of 2D characters being able to navigate 3D spaces.
-\emph{Super Paper Mario (2007)} for the Nintendo Wii is an example of this, the
-player can turn the world 90 degrees about the y-axis to explore the depth of
-the z-axis and progress through the game. An extension of this from a 3D
-character turning 90 degrees and being able to explore a 4th Dimension is
-present in the unreleased game \emph{Miegakure} in which the player can move
-through the 4th Dimension using the controller, to help orient the player a
-graphic\footnote{Which the developer tells me is based on an astrolabe} is
-displayed below the controlled character showing the position of the slice of
-the 4D world, these slices are like the 2D slices we can see in MRI imaging but
-in 3D.
+Video games also have explored higher-dimensional spaces. An interesting concept
+is that of 2D characters being able to navigate 3D spaces.  \emph{Super Paper
+Mario (2007)} for the Nintendo Wii is an example of this, the player can turn
+the world 90 degrees about the y-axis to explore the depth of the z-axis and
+progress through the game. An extension of this from a 3D character turning 90
+degrees and being able to explore a 4th Dimension is present in the unreleased
+game \emph{Miegakure} in which the player can move through the 4th Dimension
+using the controller, to help orient the player a graphic\footnote{Which the
+developer tells me is based on an astrolabe} is displayed below the controlled
+character showing the position of the slice of the 4D world, these slices are
+like the 2D slices we can see in MRI imaging but in 3D.
 
 Whilst these worlds explore pre-made or procedurally generated assets (models,
 textures, sprites, etc.), and this program instead will explore moving through
@@ -395,6 +407,13 @@ and would allow the user to recall approximately where they were. The spider
 diagram could also be `extruded' from how it looked at every point to create a
 3D model that represented how you moved through the parameters.
 
+However, this method might be unintuitive and remove the user from the main
+focus of the program. The grid should reflect the changes in the parameters in a
+way that becomes apparent with some exploration; making this somewhat redundant.
+Other options like this can be considered for other projects, but here there is
+no need. The idea of history existing in a third axis is intresting for further
+applications however. 
+
 \subsection{Controls}
 The above mentioned video games allow for the user to move through the space by
 only letting the user worry about at most 3 dimensions at any one time, and
@@ -408,7 +427,16 @@ not to people who haven't, for whom it may make sense to use the arrow keys.
 It's also important to note that in that particular demo the `d' key increases
 \verb|x|, this gives the feeling that the world is moving `beneath' you instead
 of you moving the world itself; if the controls were flipped such that `d'
-decreased \verb|x|, it would instead feel like you were moving the world. 
+decreased \verb|x|, it would instead feel like you were moving the world. This
+is extended for other buttons. For example the use of `e' and `c' are common to
+move up and down in video games (e.g. Second Life). A similar pattern using
+`ijkl' is present on the right hand side of the keyboard that allows both hands
+to be used.
+
+In the end to control all of the parameters the keys `w, a, s, d, e, c, q, z, i,
+k' were used. Each controlling a different parameter. `w, a' corresponding to y,
+`s, d' corresponding to x, `e, c' corresponding to z, `q, z' to the spacing of
+the grid, and 'i, k' to the amount of noise displacment given to each point.
 
 Another option would be something like an array of knobs, these could encode one
 parameter each, and like a scientific instrument be `tuned'. However this relies
