@@ -1,8 +1,8 @@
 \chapter{Graphics}
 To create the graphics we need to first analyse Viner's work to see the
 characteristics that need to be replicated; we then should create a method for
-drawing the grid of polygons. The verticies of the polygons need a method to be
-offset and the number of verticies in the polygon changed.
+drawing the grid of polygons. The vertices of the polygons need a method to be
+offset and the number of vertices in the polygon changed.
 
 Where Viner's work was a static image and our is dynamic; we should also
 consider how the image changes as parameters change. The points must move
@@ -30,8 +30,8 @@ slices of a higher-dimensional shape (than 2D).
 \begin{figure}[H]
     \centering
     \includegraphics[width=.5\textwidth]{3d}
-    \caption{Here the `z' parameter increases, each `layer' is transformed
-    between smoothly}
+    \caption{Here the `z' parameter increases, each `layer' is morphed between
+    smoothly}
 \end{figure}
 
 \section{Anatomy of the Work}
@@ -40,31 +40,31 @@ Viner's pen plotter work was created by a set of programs, created in
 Algorithms SubroutineOriented) \citep{lycett_2016}, this was essentially a
 graphics library, similar to what we are using processing / p5js for. This
 library was presented as part of J. A. Vince as part of their PhD.
-\verb|PICASO|'s use by Viner isn't well documented but the manual has many
+\verb|PICASO|'s use by Viner isn't well documented but the manual has
 subroutines for transforming vertices according to some rules (affine
 transformations, morphs between shapes) \citep{picaso_manual}. Some pencil notes
-on Viner's work indicate there was definitely mathematical thinking going on in
+on Viner's work indicate there was mathematical thinking going on in
 the development, but without access to the code listings, it is hard to say
 exactly how the images were generated.
 
 \section{Polygons}
 \label{Polygons}
 One aspect the program should be able to do is to grow and shrink polygons
-between different number of verticies. Viner's work uses many different number
-of verticies between images, so we should be able to reproduce this by allowing
-a smooth transition between polygons. 
+between different numbers of vertices. Viner's work uses different numbers of
+vertices between images, so we should be able to reproduce this by allowing a
+smooth transition between polygons. 
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.45\textwidth]{triangleViner}
     \hspace{0.2cm}
     \includegraphics[width=0.45\textwidth]{octagonViner}
-    \caption{Two viner pieces showing the use of polygons}
+    \caption{Two Viner pieces showing the use of polygons}
 \end{figure}
 
 
 To achieve this a polygon is inscribed on a circle. The points of this polygon
-of $n$ verticies on the circle are simply given by $$(x, y) = (\cos(\frac{2k
+of $n$ vertices on the circle are simply given by $$(x, y) = (\cos(\frac{2k
 \pi}{n}), \sin(\frac{2k\pi}{n})) \text{ where } k = 0, 1, \ldots, \lfloor n
 \rfloor$$ 
 
@@ -105,7 +105,7 @@ endShape(CLOSE);
 
 An offset to each $(x,y)$ pair can be made inside the loop. A function to limit
 the maximum offset should be created too. Here is an example of using noise to
-calcuate the offsets.
+calculate the offsets.
 
 \begin{center}
 \begin{tabular}{c}
@@ -129,7 +129,7 @@ function limit(value, amplitude) {
 The motif of a grid with changes present across the image is central to Viner's
 work, so a method of drawing this should be created.
 
-The center point of the grid is assigned a coordinate \verb|x,y,z| which is what
+The centre point of the grid is assigned a coordinate \verb|x,y,z| which is what
 is modified by the user when interacting with the program. The polygons around
 this point are calculated from that offset using the following calculation:
 
@@ -144,7 +144,7 @@ sz = (z + (gridSize * (cols/2)));
 \end{center}
 
 Where \verb|i,j| is the column and row value of the point, \verb|cols, rows|
-are the total number of columns and rows, and \verb|gridSize| is the pixel size
+are the total number of columns, rows, and \verb|gridSize| is the pixel size
 of the grid and the similarly for the \verb|gridSpacing|. 
 
 This leads to the idea of a `view window' of which the parameters in the program
@@ -161,7 +161,7 @@ translate((innerWidth/2) - x, (innerHeight/2) - y);
 \end{tabular}
 \end{center}
 
-Here a grid is prepared with fixed parameters that create distortion around
+Here a grid is prepared with fixed parameters that distort around
 \verb|x=0, y=0|. This point is fixed, and when the program is interacted with
 the world moves beneath the player rather than the point of distortion being
 changed, the grid displayed is reflecting the `terrain' visible from the centre
@@ -177,21 +177,21 @@ point.
 \end{figure}
 
 We then use \verb|sx, sy| to draw a polygon using the method described
-previously, with the \verb|sx, sy| as the center.
+previously, with the \verb|sx, sy| as the centre.
 
-Another possibility was considered to make the grid a simple series of verticies
+Another possibility was considered to make the grid a simple series of vertices
 and have a method to draw lines between them according to some rule. This was
-ultimately rejected due to much more complexity when moving between number of
-verticies in the polygon dynamically.
+ultimately rejected due to much more complexity when moving between a number of
+vertices in the polygon dynamically.
 
 \section{Landscape Generation}
 \label{landgen}
 % Talk about landscape analogy
 The program should generate a `landscape' or `topography', this is an analogy for
-a space that has an continuous change of the parameters across them. `Landscape'
+a space that has a continuous change of the parameters across them. `Landscape'
 is apt because we're exploring a set of features generated by the program much
 like if you were to look at a topographic map. The user should have the feeling
-of moving through a space like this, more than simply increasing some parameter
+of moving through space like this, more than simply increasing some parameter
 and immediately seeing a change throughout the grid.
 
 % Talk about explorations into proc gen, dynamical systems etc.
@@ -202,38 +202,37 @@ Viner's work set out to create?
 We need to be able to take the parameters of the program and reduce them down to
 a single value for use to create an offset or number of vertices in a shape.
 
-Dynamical systems may be of interest, and allow for a system to be created where
+Dynamical systems may be of interest and allow for a system to be created where
 a state evolves into other states following some rules. These states can be
 deterministic which is important for the objective that we have of recall, but
 can also be chaotic, which may be aesthetically desirable. Similarly, fractals
 may be useful for their self-similarity. Given we're working with a grid, the
-ability to have self-similar properties may be considered to be aesthetically
-useful. Neither of these however would be particularly flexible with respect to
-the fact that one function would need to be picked and used throughout the whole
-program. Also, to model a landscape with the right sized `regions' may prove
-difficult.
+ability to have self-similar properties may be aesthetically useful. Neither of
+these however would be particularly flexible as one function would need to be
+picked and used throughout the whole program. Also, to model a landscape with
+the right-sized `regions' may prove difficult.
 
 This leads to the choice between having each session using the software be
 either random in some sense or the same every time. Ideally given a random
 option to fulfil the ability to recall previous sessions, a seed would be given.
 
-For this reason noise is a good solution, many noise implementations allow you
-to specify a seed and thus have this property of reproducibility between
-sessions. Graphical implementations of noise are often created with the express
-reason of looking natural and organic.
+For this reason, noise is a good solution, the majority of noise implementations
+allow you to specify a seed and thus have this property of reproducibility
+between sessions. Graphical implementations of noise are often created with the
+express reason of looking natural and organic.
 
 \subsection{Noise}
-A desireable property is that of a fairly smooth gradient between extremes, or
-defined regions in which values are high and low. This will help to demarkate
+A desirable property is that of a smooth gradient between extremes, or
+defined regions in which values are high and low. This will help to demarcate
 `regions' on a map (think, the mountains, the foothills, and the plains). 
 
-\verb|p5js|'s built-in noise function is a perlin noise generator. You can pass
+\verb|p5js|'s built-in noise function is a Perlin noise generator. You can pass
 it up to three coordinates. Perlin noise was designed for computer graphics
 \footnote{And won an Oscar for "allow[ing] computer graphics artists to better
-represent the complexity of natural phenomena" \citep{nyu_perlin}}, and is relatively simple,
-generating a random grid of vectors and then computing the dot product vectors
-and their offsets, then finally interpolating to create a more smooth image
-\citep{10.1145/566570.566636}.
+represent the complexity of natural phenomena" \citep{nyu_perlin}}, and is
+fairly simple, generating a random grid of vectors and then computing the dot
+product vectors and their offsets, then finally interpolating to create a more
+smooth image \citep{10.1145/566570.566636}.
 
 \verb|p5js| also provides a \verb|noiseDetail()| method that provides some
 control over the 'texture' of the noise. Also for reproducibility
@@ -246,17 +245,17 @@ number between $0-1$
 \includegraphics[width=.4\textwidth]{noiseDefault}
 \hspace{0.2cm}
 \includegraphics[width=.4\textwidth]{noiseDetail2halfFalloff}
-\caption{Two perlin noise samples (one default the other with
+\caption{Two Perlin noise samples (one default the other with
 noiseDetail(2, 0.5) with the same seed, histograms plotted beneath show
 that the adjustment makes the image overall darker}
 \end{figure}
 
 One option we may wish to be able to have is `quantising' the noise to some set
-of values. For example we may wish to have areas of a certain value of $n$ for a
+of values. For example, we may wish to have areas of a certain value of $n$ for a
 polygon. This can be achieved by mapping the noise from $0-1$ to $0-n$ and
 rounding to the closest integer. This was happening implicitly with the
-histogram above. We can see that because the distribution is unimodal the most
-common values will be those towards the center of the range.
+histogram above. We can see that because the distribution is uni-modal the most
+common values will be those towards the centre of the range.
 
 \begin{figure}[H]
 \centering
@@ -276,7 +275,7 @@ common values will be those towards the center of the range.
 This effect is much more obvious when the noise scale is a lot smaller, this
 would then allow for discrete regions between two integer values for a
 parameter. What if we don't want discrete regions and instead something more
-like a multimodal distribution i.e. smoothing applied between edges?
+like a multi-modal distribution i.e. smoothing applied between edges?
 
 We can use a waveform such as the sawtooth to achieve `smoothing' by using it to
 estimate rounding, adding the value to the wave produces something approximating
@@ -313,7 +312,7 @@ function approx_round(value, terms) {
 \caption{Rounded discretely, Terms = 100, Terms = 20, Terms = 1}
 \end{figure}
 
-At such a large scale the difference is hard to percieve but when using the
+At such a large scale the difference is hard to perceive but when using the
 example in \autoref{0.001scale} there's a clear `smoothing' in the boundaries.
 
 \begin{figure}[H]
@@ -326,7 +325,7 @@ example in \autoref{0.001scale} there's a clear `smoothing' in the boundaries.
 \caption{Terms = 100, Terms = 10, Terms = 1}
 \end{figure}
 
-Implmenting this such that noise controlls the number $n$ (verticies in a
+Implementing this such that noise controls the number $n$ (vertices in a
 polygon) we can get results like this (note that the background is shaded darker
 for lower values of $n$ and lighter for higher values of $n$)
 \begin{figure}[H]
@@ -337,8 +336,8 @@ for lower values of $n$ and lighter for higher values of $n$)
 \caption{Terms = 20, Terms = 1}
 \end{figure}
 
-With user interaction this scheme creates the feeling of moving through regions
-of these differernt values of $n$ and the parameter for the number of terms
+With user interaction, this scheme creates the feeling of moving through regions
+of these different values of $n$ and the parameter for the number of terms
 allows for adjustments to be made about how `hard' or `soft' the borders between
 these regions look.
 
@@ -346,18 +345,18 @@ This approach is, I believe somewhat novel, as most techniques for adjusting
 noise is usually done at a whole-image level. This method is point-wise and thus
 can work for each polygon or vertex in the grid we have defined. In the field of
 signal processing the concept of `quantisation noise' is similar but reversed,
-taking a contiuous signal and analysing the error in the digital discrete
+taking a continuous signal and analysing the error in the digital discrete
 signal. Here we are designing a function for an artistic application, and I do
 not think that it has application to the field of signal processing as it works
-on discrete to discrete transformations and not continous to discrete.
+on discrete to discrete transformations and not continuous to discrete.
 
 \section{Navigation}
 Because this program deals with a set of parameters that change over time, it is
 a good idea to look at concepts for navigating higher-dimensional space that
-already exist; in this we can learn how other people have approached this. If we
+already exist; in this, we can learn how other people have approached this. If we
 imagine each parameter in the program as a spatial dimension, there is a body of
 knowledge available regarding this because many fields rely on large
-multi-variate data; for example the field of machine learning for example deals
+multivariate data; for example the field of machine learning for example deals
 with very high dimensional data in feature vectors.
 
 Tools like `\verb|ggobi|' exist to help explore multi-variate data
@@ -371,7 +370,7 @@ Whilst these approaches are useful for data, what we're dealing with here is
 generating spaces to explore, these spaces are less about trends in data and
 more about geometric exploration through many continuous parameters. In this, we
 want all of the data of the parameters to be visible at once, meaning these data
-visulisation methods are not as useful for our purpouses.
+visualisation methods are not as useful for our purposes.
 
 \begin{figure}[H]
     \centering
@@ -385,7 +384,7 @@ is that of 2D characters being able to navigate 3D spaces.  \emph{Super Paper
 Mario (2007)} for the Nintendo Wii is an example of this, the player can turn
 the world 90 degrees about the y-axis to explore the depth of the z-axis and
 progress through the game. An extension of this from a 3D character turning 90
-degrees and being able to explore a 4th Dimension is present in the unreleased
+degrees and being able to explore the 4th Dimension is present in the unreleased
 game \emph{Miegakure} in which the player can move through the 4th Dimension
 using the controller, to help orient the player a graphic\footnote{Which the
 developer tells me is based on an astrolabe} is displayed below the controlled
@@ -399,7 +398,7 @@ understand where exactly they are.
 
 \subsection{Graphical Prompts}
 A simple idea to allow the user to recall where in the parameter space they were
-could be a spider / radar plot, or parallel coordinates plot. For our intents these
+could be a spider / radar plot or parallel coordinates plot. For our intents, these
 are the same as we're only displaying a single set of parameters the spider plot
 is just a `round' version of the parallel coordinates plot. This could exist on
 the screen somewhere and change as the user moved around the parameter space,
@@ -411,12 +410,12 @@ However, this method might be unintuitive and remove the user from the main
 focus of the program. The grid should reflect the changes in the parameters in a
 way that becomes apparent with some exploration; making this somewhat redundant.
 Other options like this can be considered for other projects, but here there is
-no need. The idea of history existing in a third axis is intresting for further
-applications however. 
+no need. The idea of history existing in a third axis is interesting for further
+applications, however. 
 
 \subsection{Controls}
-The above mentioned video games allow for the user to move through the space by
-only letting the user worry about at most 3 dimensions at any one time, and
+The above-mentioned video games allow for the user to move through space by
+only letting the user worry about at most 3 dimensions at any one time and
 regarding the others as static when moving through them, this allows the user to
 control the movement with traditional controls (either a games controller or
 keyboard and mouse).
@@ -428,19 +427,19 @@ It's also important to note that in that particular demo the `d' key increases
 \verb|x|, this gives the feeling that the world is moving `beneath' you instead
 of you moving the world itself; if the controls were flipped such that `d'
 decreased \verb|x|, it would instead feel like you were moving the world. This
-is extended for other buttons. For example the use of `e' and `c' are common to
+is extended for other buttons. For example, the use of `e' and `c' are common to
 move up and down in video games (e.g. Second Life). A similar pattern using
-`ijkl' is present on the right hand side of the keyboard that allows both hands
+`ijkl' is present on the right-hand side of the keyboard that allows both hands
 to be used.
 
 In the end to control all of the parameters the keys `w, a, s, d, e, c, q, z, i,
 k' were used. Each controlling a different parameter. `w, a' corresponding to y,
 `s, d' corresponding to x, `e, c' corresponding to z, `q, z' to the spacing of
-the grid, and 'i, k' to the amount of noise displacment given to each point.
+the grid, and 'i, k' to the amount of noise displacement given to each point.
 
 Another option would be something like an array of knobs, these could encode one
-parameter each, and like a scientific instrument be `tuned'. However this relies
-on specialist hardware. This would probably feel less like `moving' through a
+parameter each, and as a scientific instrument be `tuned'. However, this relies
+on specialist hardware. This would probably feel less like `moving' through
 space and more exploring a range of possibilities.
 
 \section{User Interface}
@@ -455,10 +454,10 @@ and a help screen that explains the key controls and what the program is.
     \caption{Web interface with buttons}
 \end{figure}
 
-I decided to keep the buttons simple, and without text so as to not distract
+I decided to keep the buttons simple, and without text to not distract
 from the main graphical part of the program. They also animate when the user
 hovers over them (they gain a black border and grey background) to indicate they
-are able to be clicked.
+are can be clicked.
 
 \begin{figure}[H]
     \centering
@@ -468,8 +467,8 @@ are able to be clicked.
 
 The help menu expands when the `?' button in the top right is hovered and
 retracts when the user un-hovers the help menu. The background is slightly
-transparent so as to not block the rest of the program. I produced a graphic of
-a keyboard to help explain where the keys are located on the users computer and
+transparent to not block the rest of the program. I produced a graphic of
+a keyboard to help explain where the keys are located on the users' computer and
 a flex-box list of keys (that adapt to different screen widths). I also included
-a short explaination of how the history tree works and what the audio controls
+a short explanation of how the history tree works and what the audio controls
 do.

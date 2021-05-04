@@ -3,15 +3,14 @@ Evaluating an artistic project is difficult as there is a need to separate
 aesthetic goals from more technical ones. Testing against the objectives I set
 in the introduction may be potentially \emph{subjective} due to the nature of
 the project. For example, how can we test if the program ``Allows the user to
-experience the works of Viner'', for this some comparison of the methods used in
+experience the works of Viner'', here some comparison of the methods used in
 this project, the possibilities of the images they generate, and the existing
 work of Viner needs to be made. User testing is possible to compare against the
 user interaction elements, but would not tell the whole story of the more
 artistic style.
 
 I have therefore tried to talk about some of the more aesthetic goals and
-evaluate them as technically as possible, but with respect to the original
-objectives.
+evaluate them as technically as possible concerning the original objectives.
 
 \section{User Testing}
 The current situation with COVID-19 and meeting people in person made in-person
@@ -30,9 +29,9 @@ felt like the user was exploring a landscape, if the audio felt connected to the
 graphics, how intuitive the program was to control, how it felt to use the
 history function, and two optional free text fields about how it felt to control
 the program and a generic 'other' field for capturing any other feelings the
-user might have had. I kept the questionnaire short as to encourage a greater
-number of responses. The questionnaire is attached \autoref{questionnaire}. In
-the end I collected 20 user's responses most of which left text in the free text
+user might have had. I kept the questionnaire short to encourage a greater
+number of responses. The questionnaire is attached in \autoref{questionnaire}. In
+the end, I collected 20 user's responses most of which left text in the free text
 fields.
 
 \section{Evaluation}
@@ -43,7 +42,7 @@ said: ``I found it unintuitive at first but I think that was made it engaging at
 first. If I felt like I knew how it worked straight away I wouldn't have played
 with it for as long. I felt like it was a puzzle.''
 
-This is a good for a program made to engage people, the fact that users were
+This is good for a program made to engage people, the fact that users were
 puzzled but then with some user it began to make sense shows that there is some
 learning moment going on; which may cause a feeling of `mastery' over the
 program and overall a greater sense of accomplishment than if a full tutorial
@@ -92,7 +91,7 @@ isn't explored in this project either.
     \caption{}
 \end{figure}
 
-This is not necessarily a failure outright, but does bare mentioning that the
+This is not necessarily a failure outright but does bear mentioning that the
 program only explores a subset of Viner's work; which still provides the user
 with the sense of exploring a possible `landscape' of which these images are
 part of.
@@ -110,7 +109,7 @@ could be reused in any project.
 The methods for auditory location outlined in \autoref{sonicnav} are of interest
 to me to develop further as I believe they could be expanded to work well with
 existing data visualisation programs and perhaps be used as a novel way to
-explore multi-variate datasets as an extra part of, for example the grand tour
+explore multi-variate datasets as an extra part of, for example, the grand tour
 method as in \citep{asimov1985grand}; a chord could play with the intervals
 marking the subsets you are viewing and move between chords as the image on the
 screen changes. More exploration could also be completed with rhythm which is a
@@ -119,8 +118,8 @@ you are travelling through in time, with acceleration these beats get closer
 together.
 
 The noise `approximate rounding' method in \autoref{landgen} is an example of a
-technique that can be fully integrated into another project at will, this was
-successful example of creating a technique that is applicable to other projects
+technique that can be fully integrated into another project at will, this was a
+successful example of creating a technique that is applies to other projects
 that utilise point-wise noise.
 
 \subsection{User Interface}
@@ -128,9 +127,9 @@ Some users in testing pointed out that the help menu would be cut off on smaller
 screens (e.g. older laptops) so I implemented some responsive CSS using
 \verb|@media| queries to allow for it to be used on smaller screens. I did this
 during user testing as I believe it was important to the user's experience of
-other elements of the program for the purposes of evaluation. Similarly, an
-issue with some elements (the volume slider and mute button) not repositioning
-themselves if the screen resized. I also fixed this during user testing.
+other elements of the program for evaluation. Similarly, an issue with some
+elements (the volume slider and mute button) not repositioning themselves if the
+screen resized. I also fixed this during user testing.
 
 One user commented that they used an AZERTY keyboard which this program does not
 support so they had to switch to QWERTY. Whilst not a problem for a physical
@@ -163,12 +162,12 @@ acceleration as you hold down a button could be introduced to allow people to
 move around faster.
 
 \subsection{Audio}
-From an artistic perspective I think that the musical aspect was a success, this
-is hard to evaluate as it is totally disconnected from even Viner's work.
-Ideally I would have included some more depth. I had looked into using various
-field recordings from around Leeds I have made as backing for the music but the
-technical aspects of this made it impossible to implement without using a
-web server meaning the whole application was less portable.
+From an artistic perspective, I think that the musical aspect was a success, this
+is hard to evaluate as it is disconnected from even Viner's work. Ideally, I
+would have included some more depth. I had looked into using various field
+recordings from around Leeds I have made as backing for the music but the
+technical aspects of this made it impossible to implement without using a web
+server meaning the whole application was less portable.
 
 \begin{figure}[H]
     \centering
@@ -187,7 +186,7 @@ to a remote gallery but, again, might not be a problem on a single installation
 where only one computer is used. I believe this is an issue about how
 auto-playing sound is allowed to work in the browser (it needs to be triggered
 from a user-controlled context first), so I added an extra instruction to press
-the space bar to play sound (which was mapped to toggle Tone.JS's transport);
+the space bar to play sound (which was mapped to toggle Tone.JS's transport),
 but I could not reproduce this issue and therefore cannot test that it works.
 
 \subsection{History}
@@ -200,12 +199,12 @@ One user suggested that there should be the ability ``[...] to decide when a
 node on the tree was created, rather than have this happen automatically.''
 Which is an interesting idea, perhaps two modes could be provided `automatic'
 and `manual' with a button to add a new node at will, or maybe a different
-colour colour be used for manually saved states. This would allow users to fully
+colour be used for manually saved states. This would allow users to fully
 save and recall states that they wish to revisit.
 
-Some users commented that they found the upload and download confusing, and that
+Some users commented that they found the upload and download confusing and that
 perhaps I should limit the possible uploaded files to only the
-`application/json' MIME type so as to not let the user think any arbitrary file
+`application/json' MIME type to not let the user think any arbitrary file
 is uploaded. Also, being in a web browser the user might think that the
 uploaded files are stored on an external server which is not the case; The file
 never leaves their computer. Some method to let the users know this is the case

@@ -6,7 +6,7 @@ I have developed a theoretical system for using sound to navigate a
 higher-dimensional space, using ideas from \emph{Harry Partch} and \emph{Joe
 Monzo's} approached to tuning theory.
 
-This is a process to generate intervals based on a set of spacial coordinates,
+This is a process to generate intervals based on a set of spatial coordinates,
 or simply a set of parameters. Taking inspiration from the
 \emph{just-intonation} tuning method a ratio comprised of integers only sounds
 consonant.
@@ -21,10 +21,10 @@ concept of intervals.
 
 \subsection{Intervals}
 An \emph{interval} is simply a ratio of two frequencies: $\frac{f_1}{f_2}$.
-Pythagoras' hammers were in consonant as their weights were 12, 9, 8, and 6.
-The ratios here of $12:6$ correspond to $\frac{2}{1}$ or an octave, similarly
-$12:9 = \frac{4}{3}, 12:8 = \frac{3}{2}$ for the other two. Whilst this myth is
-probably apocryphal, the use of ratios of strings for music have been used since
+Pythagoras' hammers were consonant as their weights were 12, 9, 8, and 6.  The
+ratios here of $12:6$ correspond to $\frac{2}{1}$ or an octave, similarly $12:9
+= \frac{4}{3}, 12:8 = \frac{3}{2}$ for the other two. Whilst this myth is
+probably apocryphal, the use of ratios of strings for music has been used since
 antiquity. What Pythagoras proved is that intervals are these ratios and that
 materials have properties from which these frequencies arise.
 
@@ -79,7 +79,7 @@ A \emph{$p$-limit} tuning system is a just-intonation based system where every
 interval's highest prime factor is $p$. \citep[p.76, 109]{partch1974genesis}
 Pythagoras' tuning system can be said to be 3-limit. These intervals can be
 represented using an exponent vector, usually called a `monzo'
-\citep{monzo_2005}; for example $3:2$ is represented as such: $|-1\ 1\ \rangle$.
+\citep{monzo_2005}; for example, $3:2$ is represented as such: $|-1\ 1\ \rangle$.
 This is simply a shorthand for $2^{-1} 3^1$, and can be extended: $|e_1\ e_2\
 \cdots\ e_n\rangle$ where each $e_i$ in the vector is an exponent of a prime
 number $2^{e_1} 3^{e_2} \cdots p_n^{e_n}$. 
@@ -151,12 +151,12 @@ exponents could represent some parameter added to the program.
 \subsection{Limitations}
 As more variables are introduced integer ratios will sound less `strongly
 consonant' and may be harder to understand naturally. However, every interval
-that is possible with less variables will still be possible so a user could
+that is possible with fewer variables will still be possible so a user could
 still explore one or two parameters at a time and get the same results.
 
 \subsection{Processing Demo}
 I have created a demo of this concept in 2D in processing, the code is in
-\autoref{audiodemo}. The program simply has a integer-marked grid that the user
+\autoref{audiodemo}. The program simply has an integer-marked grid that the user
 can navigate using \verb|WASD| and will calculate the interval based on the
 coordinates of the point. Similarly to \autoref{outoftune}:
 
@@ -173,35 +173,34 @@ the audio is out of tune in the second state}
 \tikz[overlay,remember picture]{\draw[-latex,thick] (1AL) -- (1AL-|1AR.west)
 node[midway,below]{};} 
 
-This demo is very simple and only uses two sine waves so is very unpleasant to
-listen to, but illustrates the point, at points outside those marked there is a
-`beating' sound to the waves as they do not harmonise correctly. However, there
-are points that aren't marked that \emph{do} sound somewhat consonant, so this
-cannot be the only method for navigation, only a prompt to help the user.
+This demo is simple and only uses two sine waves so is unpleasant to listen to,
+but illustrates the point, at points outside those marked there is a `beating'
+sound to the waves as they do not harmonise correctly. However, as some points
+aren't marked that \emph{do} sound somewhat consonant, so this cannot be the
+only navigation method , only a prompt to help the user.
 \section{Composition}
 \label{Composition}
 To create a sound accompaniment to the visual aspect we first need to consider
 what style of music we should explore, that is to say, create at least an idea
 of composition. Generative music is the technique we're exploring here, with
 musical ideas being emergent from a set of parameters, and created from a system
-that processes them. The definition is fairly vague as with generative art, the
-main requirement is that a system is setup and creates the music, this doesn't
-need to be a computer, but often is.
+that processes them. The definition is vague as with generative art, the main
+requirement is that a system is set up and creates the music, this doesn't need
+to be a computer, but often is.
 
 Generative music is rather recent, with Brian Eno being major figure
 popularising its use, he would often use the analogy of a Moir\'{e} pattern to
 describe how the programs would work at the time.  
 
 The immediate style of music to draw from Viner's work would probably be that of
-minimalism, the repetition and difference across an image is very similar in
-style to especially the percussive works of Reich, Glass, Riley, and even the
-drone works of La Monte Young to an extent. Another, less famous example that I
-feel conveys the feeling well is \emph{Jon Gibson - Cycles (1977)}, the cover
-for the recording is a Moir\'{e} pattern, and the work modulates a 7-note
-pattern that comes into and out of phase with itself. This piece uses an organ
-which I think works very well.
+minimalism, the repetition and difference across an image is similar in style to
+especially the percussive works of Reich, Glass, Riley, and even the drone works
+of La Monte Young to an extent. Another, less famous example that I feel conveys
+the feeling well is \emph{Jon Gibson - Cycles (1977)}, the cover for the
+recording is a Moir\'{e} pattern, and the work modulates a 7-note pattern that
+comes into and out of phase with itself.
 
-In fact, Eno refers to his inspiration of generative music to be triggered by
+Eno refers to his inspiration of generative music to be triggered by
 hearing \emph{It's Gonna Rain} by Reich, linking generative music as a concept
 pretty solidly to Minimalism. Reich used the analogy of fabric work and weaving,
 featuring on the cover of Music for 18 Musicians is a woven piece of fabric;
@@ -209,25 +208,25 @@ this seems similar to the idea of a grid (given that weaving takes place on a
 matrix of strings, perhaps the crossing points could be seen as `vertices')
 
 Overall the idea with the composition should be to enhance what is on the
-screen, if the image is disordered the sound should be too, if it is ordered
+screen if the image is disordered the sound should be too, if it is ordered
 and regular the sound should follow. If there are some number of vertices in the
 shapes on the screen there should be some feedback too.
 
-Further this will be combined with the methods mentioned in
+Further, this will be combined with the methods mentioned in
 \autoref{sonicnav}, including the ideas present in the mentioned minimalist
 composers. This will be an element in the work that is unique from the art and
 perhaps helps distance itself from being purely a replica of Viner.
 
 \section{Synthesis}
-Broadly there are four approaches to digital synthesis, that of the Processed
-Recording, the Spectral Model, the Physical Model, and the Abstract Algorithm
+Broadly there are four approaches to digital synthesis, that of: the processed
+recording; the spectral model; the physical model; and the abstract algorithm
 \citep{smith_2005}.
 
-For this project spectral and physical modelling are out of the scope and would
+For this project, spectral and physical modelling is out of the scope and would
 require more specialist audio software frameworks. Processed recording, includes
 more sample-based audio and manipulation of that, granular synthesis is an
 example. The 'abstract algorithm' methods include things like FM synthesis,
-which in its most basic form is comprised of a carrier waveform who's frequency
+which in its most basic form is comprised of a carrier waveform whose frequency
 is modulated by another waveform, this can be extended by things like including
 feedback at various stages of the processing.
 
@@ -236,18 +235,18 @@ processing and p5.js both have sound libraries with built-in audio effects,
 reverb and delay perhaps being the most important to create the idea of a space
 in the sound.
 
-Creating these methods in software are fairly straightforward when there is
-already some digital signal processing in place; a library called
-\verb|Tone.JS| handles the practicalities of generating sound in JavaScript and
-works alongside \verb|p5.js| nicely.
+Creating these methods in software is straightforward when there is already
+some digital signal processing in place; a library called \verb|Tone.JS| handles
+the practicalities of generating sound in JavaScript and works alongside
+\verb|p5.js| nicely.
 
 Additive synthesis makes sense for use here there are a lot of controls over
-parameters, it is easy to implement and can reproduce a number of sounds. As in
-the composition section, work like `Cycles' is performed on the organ for
-example. This is an easy sound to replicate in additive synthesis as you can
-achieve the effect by playing multiple sine waves at the same time; in fact this
+parameters, it is easy to implement and can reproduce many different qualities
+of sound.  As in the composition section, work like `Cycles' is performed on the
+organ for example. This is an easy sound to replicate in additive synthesis as
+you can achieve the effect by playing multiple sine waves at the same time; this
 is what the earliest pipe-less organs did. Whilst not in software, they would
-have series of plates of disk that encoded the waveforms and played them all at
+have series of plates or disks that encoded the waveforms and played them all at
 once through a mixer to create complex waveforms \citep{10.2307/3680869}.
 
 \subsection{Additive Synthesis in Tone.JS}
@@ -272,12 +271,12 @@ const env = new Tone.AmplitudeEnvelope({
 
 The number of oscillators in a bank can be chosen at will and for our purposes
 are tuned as per the harmonic series this is to create a pleasing timbre (the
-`summation' or additive part is when we feed them into a mixer). Each oscillator
-is labelled with a number that corresponds to the term of the series they are
-then when the attack for each oscillator is triggered, the frequency is
-calculated simply by the incoming not frequency times the harmonic index. Also
-each oscillator will be quieter than the last according, this is again to create
-timbre.
+`summation' or additive part is when we feed them into a mixer). 
+Each oscillator is labelled with a number that corresponds to the term of the
+harmonic series, when the attack for each oscillator is triggered the frequency
+is calculated as the incoming frequency times the number of the term. Also, each
+oscillator will be quieter than the last according, this is again to create
+the timbre.
 
 Since we are adding these oscillators' signals together, consideration needs to
 be given to the phase angle that each lay at. Setting them to \verb|(i / NUM_OSCS) * 360| 
@@ -290,18 +289,18 @@ between the oscillators.
 To create a sequence I considered a couple of options, to have a fixed note
 sequence for example. This would perhaps be too static and not fit with the idea
 of the project being generative art. Another simple option was to make notes
-completely random, this tends to sound very `robotic' like a Sci-Fi movie
-control panel. There could also be a random choice within a set of consonant
-notes (i.e. that of a chord) this is a better idea because there's less chance
-of a `bum note' (one that sounds out of place).
+completely random, this tends to sound `robotic' like a Sci-Fi movie control
+panel. There could also be a random choice within a set of consonant notes (i.e.
+that of a chord) this is a better idea because there's less chance of a `bum
+note' (one that sounds out of place).
 
 An extension of this idea is to use Markov Chains to model music in
 \citep{ballstate2016} for example, they analyse Bach, Mozart, Palestrina, and
 Beethoven to create a set of transition matrices for their chord progressions.
-In this example chord progressions are used but the method can easily be adapted
+In this example, chord progressions are used but the method can easily be adapted
 to note progressions too. 
 
-For my sequence I picked six possible tones, expressed as intervals from a base
+For my sequence, I picked six possible tones, expressed as intervals from a base
 tone, as $1, 1.2, 1.25, 1.5, 1.6, 2$ these represent unison, a minor third, a
 major third, perfect fifth, and a minor sixth, and the octave (all
 just-intonation). These tones were picked because they were the intervals in
@@ -361,25 +360,24 @@ probList.forEach((e, i) => {
 Where \verb|probList| is the array referenced by the key of the current note in the
 object and \verb|intervalIndex| is the index of the array of keys in the object.
 
-Overall this is a very simple method for creating note sequences but is quite
-effective for limiting the number of possible transitions with a lot of
-flexibility.  
+Overall this is a simple method for creating note sequences but is effective for
+limiting the number of possible transitions with a lot of flexibility.  
 
 \section{Chords}
 For the music to not sound one-dimensional we need to pick more than one note to
 play in the additive synthesis. This leads to the idea of chords, again we can
-build these with intervals, this time using a bit more musical theory. 
+build these with intervals, this time using a bit more music theory. 
 
 I chose that for each vertex that is present in the middle of the screen there
 should be another note in the chord. The structure of the chord I chose is
 simple with the notes being the base note, the minor third, the fifth, the minor
 seventh, the octave, and the whole tone (or 2nd). Represented by the ratios $1,
 \frac{6}{5}, \frac{3}{2}, \frac{9}{5}, 2, \frac{9}{8}$ respectively. This is
-purely an artistic choice. For example if a triangle is in the centre of the
+purely an artistic choice. For example, if a triangle is in the centre of the
 screen the first three intervals in the chord will be played $1, \frac{6}{5},
 \frac{3}{2}$ resulting in a minor fifth chord. If the user then moves on top of
 a square the $\frac{9}{5}$ ratio is added to the chord making a minor seventh,
-similarly if there's a pentagon it simply adds an octave and for a hexagon a
+similarly, if there's a pentagon it simply adds an octave and for a hexagon, a
 whole tone which will sound strange but hexagons are rarer to find, making it
 feel `special'.
 
@@ -416,5 +414,5 @@ the base and movable voice so overall there are 48 sine oscillators.
 Extensions of this method may lend themselves to being able to control the
 waveform types and phase of each of the waves as well as what harmonics are
 present in each voice. Also the ability to change the intervals in a chord.
-These seem less important for a application such as this primarily static
+These seem less important for an application such as this primarily static
 artistic use.
