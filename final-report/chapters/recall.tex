@@ -82,6 +82,35 @@ the node to check whether to make itself red or not. The button can be used to
 check when the mouse is clicked if the button is hovered at the time of clicking
 and then the state can be loaded.
 
+\begin{lstlisting}[language=JavaScript]
+tree.traverser().traverseDFS(function(node) {
+    if (prevDepth + 1 === node['_depth']) {
+        b += treeButtonDiameter+1;
+        values[node.data().key] = {'a':a, 'b':b};
+        prevDepth = node['_depth'];
+    } else {
+        // get the parent node only when we branch
+        parentNode = node.parentNode();
+        b = values[parentNode.data().key].b;
+        a += treeButtonDiameter*2;
+
+        prevDepth = node['_depth'];
+        
+        // draw a line from the node to it's parent's
+        push();
+        strokeWeight(1);
+        values[node.data().key] = {'a':a, 'b':b};
+        line(values[parentNode.data().key].a + (treeButtonDiameter/2), b, a,b);
+        pop();
+    }
+
+    let currentButton = new TreeButton(a, b, node.data().key, 
+                                             treeButtonDiameter);
+    currentButton.display(logger.getIndex());
+    buttons.push(currentButton);
+});
+\end{lstlisting}
+
 \section{Recalling Parameters}
 Recalling parameters is simple, when we know the key of the node to recall (from
 the button that was clicked on) we can search the tree and then return the

@@ -163,16 +163,15 @@ coordinates of the point. Similarly to \autoref{outoftune}:
 \begin{figure}[H]
 \centering
 \subfloat{\tikz[remember
-picture]{\node(1AL){\includegraphics[width=.4\textwidth]{audiopoc2}};}}%
+picture]{\node(1AL){\includegraphics[width=.3\textwidth]{audiopoc2}};}}%
 \hspace*{2cm}%
 \subfloat{\tikz[remember
-picture]{\node(1AR){\includegraphics[width=.4\textwidth]{audiopoc1}};}}
+picture]{\node(1AR){\includegraphics[width=.3\textwidth]{audiopoc1}};}}
 \caption{At first the black dot is hidden beneath the centre red dot, the user uses WASD to navigate,
 the audio is out of tune in the second state}
 \end{figure}
 \tikz[overlay,remember picture]{\draw[-latex,thick] (1AL) -- (1AL-|1AR.west)
 node[midway,below]{};} 
-
 This demo is simple and only uses two sine waves so is unpleasant to listen to,
 but illustrates the point, at points outside those marked there is a `beating'
 sound to the waves as they do not harmonise correctly. However, as some points
@@ -265,7 +264,7 @@ const env = new Tone.AmplitudeEnvelope({
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{adsr}
+    \includegraphics[width=0.4\textwidth]{adsr}
     \caption{Typical attack decay sustain release (ADSR) curve}
 \end{figure}
 
@@ -389,10 +388,7 @@ and attack with the new frequency.
 \begin{lstlisting}[language=JavaScript]
 const getChord = (i) => [
     base*currentNote,
-    base*currentNote*1.2,
-    base*currentNote*1.5,
-    base*currentNote*1.8,
-    base*currentNote*2,
+    ...
     base*currentNote*1.125
 ];
 

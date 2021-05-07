@@ -350,6 +350,53 @@ signal. Here we are designing a function for an artistic application, and I do
 not think that it has application to the field of signal processing as it works
 on discrete to discrete transformations and not continuous to discrete.
 
+\section{Integration}
+%TODO tie together the whole thing
+These parts then tie together to make the whole graphical system, the polygons
+are drawn at each point in the grid and given an offset by the noise; this is
+all drawn within a \verb|push()| and \verb|pop()| so as to not affect the
+history tree (detailed later). Here is one iteration of the loop through the
+columns and the rows:
+
+\begin{lstlisting}[language=JavaScript]
+// calculate x y and z values for the current polygon
+sx = (x + ((gridSize+gridSpacing) * ((cols/2) - i)));
+sy = (y + ((gridSize+gridSpacing) * ((rows/2) - j)));
+sz = (z + (gridSize * (cols/2)));
+
+// From section on polygons and noise, generate a number from 1 to 6 for
+// the number of verticies
+n = approx_round(map(noise(sx*0.001, sy*0.001, sz*0.001), 0, 1, 1, 6), 1);
+
+let theta = (3*QUARTER_PI) - TWO_PI/n;
+dTheta = TWO_PI/n;
+
+beginShape()
+    for (k = 0; k <= n; k++) {
+        theta += dTheta;
+        // Calculate offsets to points
+        ox = limit(noise(sx*cos(theta)*0.001, 
+                         sz*0.001)*noiseMultiplier, 
+                   2*gridSize);
+
+        oy = limit(noise(sy*sin(theta)*0.001, 
+                         sz*0.001)*noiseMultiplier, 
+                   2*gridSize);
+
+        // Points on the circle
+        xc = sx + ox + gridSize * cos(theta);
+        yc = sy + oy + gridSize * sin(theta);
+        
+        // draw the vertex
+        vertex(xc, yc);
+    }
+endShape(CLOSE);
+\end{lstlisting}
+
+In this code snippet we can see that most of the above code is replicated but
+with some changes in multipliers (e.g. values in noise are multiplied by 0.001)
+these are changes made to produce aesthetic results in the final output.
+
 \section{Navigation}
 Because this program deals with a set of parameters that change over time, it is
 a good idea to look at concepts for navigating higher-dimensional space that
