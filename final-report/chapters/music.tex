@@ -206,10 +206,10 @@ featuring on the cover of Music for 18 Musicians is a woven piece of fabric;
 this seems similar to the idea of a grid (given that weaving takes place on a
 matrix of strings, perhaps the crossing points could be seen as `vertices')
 
-Overall the idea with the composition should be to enhance what is on the
-screen if the image is disordered the sound should be too, if it is ordered
-and regular the sound should follow. If there are some number of vertices in the
-shapes on the screen there should be some feedback too.
+Overall, the composition should enhance what is on the screen, using the
+parameters that are being manipulated by the user to inform what sounds are
+created for example: if the number of vertices in the shapes on the screen
+changes the music should change accordingly.
 
 Further, this will be combined with the methods mentioned in
 \autoref{sonicnav}, including the ideas present in the mentioned minimalist
@@ -278,9 +278,9 @@ oscillator will be quieter than the last according, this is again to create
 the timbre.
 
 Since we are adding these oscillators' signals together, consideration needs to
-be given to the phase angle that each lay at. Setting them to \verb|(i / NUM_OSCS) * 360| 
-will allow for there to be no harsh constructive or destructive interference
-between the oscillators.
+be given to the phase angle that each are set to. Setting them to \verb|(i / NUM_OSCS) * 360| 
+allows for there to be no harsh constructive or destructive interference between
+the oscillators.
 
 
 \section{Sequencing}
@@ -360,7 +360,7 @@ Where \verb|probList| is the array referenced by the key of the current note in 
 object and \verb|intervalIndex| is the index of the array of keys in the object.
 
 Overall this is a simple method for creating note sequences but is effective for
-limiting the number of possible transitions with a lot of flexibility.  
+limiting the number of possible transitions with a lot of flexibility.
 
 \section{Chords}
 For the music to not sound one-dimensional we need to pick more than one note to
