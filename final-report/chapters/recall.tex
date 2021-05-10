@@ -110,6 +110,16 @@ tree.traverser().traverseDFS(function(node) {
 });
 \end{lstlisting}
 
+This method was inspired by various interfaces for git that show a tree view of
+commits / forks, however in this case there is no merge. \verb|gittk| is an
+example of this but many other similar visualisations exist.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.3\textwidth]{gittk}
+    \caption{gittk tree view}
+\end{figure}
+
 \section{Recalling Parameters}
 Recalling parameters is simple, when we know the key of the node to recall (from
 the button that was clicked on) we can search the tree and then return the
